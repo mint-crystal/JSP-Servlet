@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 
+import lombok.extern.java.Log;
+
+@Log
 public class UploadFileReNamePolicy implements FileRenamePolicy {
 
 	@Override
@@ -41,10 +44,13 @@ public class UploadFileReNamePolicy implements FileRenamePolicy {
           }
     
           String tempName = uniqueFileName + ext;
-          f = new File(f.getParent(), tempName);
+          System.out.println("tempName : "+tempName);
+          
+          f = new File(f.getParent(), tempName); //parent 폴더 경로의 child라는 파일에 대한 File 객체를 생성
           if (createNewFile(f)) {
                return f;
           }
+          System.out.println("f : " + f.getParent());
 
           int count = 0;
           while (!createNewFile(f) && count < 9999) {
